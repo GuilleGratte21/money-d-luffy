@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  money-d-luffy:
+    image: money-d-luffy
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://money-d-luffy_db:5432/mdl_db
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=ch4ng3_m3
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - money-d-luffy_db
+
+  money-d-luffy_db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: mdl_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: ch4ng3_m3
+    ports:
+      - "5432:5432"
